@@ -1,4 +1,4 @@
-This is a small app showcasing react, typescript and jest tests. My main focus was to create a component structure which follows the container/presentational pattern.
+This is a small app showcasing react, typescript and jest tests. My main focus was to create a component structure which follows the container/presentational pattern which enables better structure and testing.
 
 The API used to fetch data is from "Livsmedelsverket": https://www.livsmedelsverket.se/om-oss/psidata/livsmedelsdatabasen/
 

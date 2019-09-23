@@ -1,0 +1,15 @@
+.autocomplete {
+	position: absolute;
+    width: 100%;
+    z-index: 100;
+    align-self: flex-end;
+}
+.autocomplete .dropdown-menu {
+	width: 100%;
+}
+.search-wrapper {
+	position: relative;
+}
+.input-autocomplete {
+	width: 100%;
+}

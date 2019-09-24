@@ -57,8 +57,8 @@ export function SearchView(props: ISearchViewProps) {
                   <Dropdown.Item
                     onSelect={onSelect}
                     key={item.id}
-                    eventKey={item.namn as any}>
-                    {item.namn}
+                    eventKey={item.id as any}>
+                    {item.value}
                   </Dropdown.Item>
                 )}
             </Dropdown.Menu>

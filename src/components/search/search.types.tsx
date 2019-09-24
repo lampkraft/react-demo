@@ -1,26 +1,21 @@
-import { FocusEvent } from "react";
+export interface ISearchItem {
+	id: string;
+	value: string;
+}
 
 export interface ISearchViewProps {
 	search: Function;
 	select: Function;
 	showDropdown: boolean;
-	autoCompleteItems: IFoodAutoComplete[];
+	autoCompleteItems: ISearchItem[];
 	placeholder: string;
 	loading: boolean;
 	inputValue: string;
 	clear: Function;
 }
 
-export interface IFoodAutoComplete {
-	id: number;
-	namn: string;
-	arLivsmedel: boolean;
-	bildtyp: number;
-}
-
 export interface ISearchContainerState {
-	autoCompleteItems: IFoodAutoComplete[],
-	selectedFoodItemId: string | null,
+	autoCompleteItems: ISearchItem[];
 	result: any | null,
 	showDropdown: boolean;
 	inputValue: string;
@@ -28,4 +23,9 @@ export interface ISearchContainerState {
 	imageResult: string;
 	resultLoading: boolean;
 	searchLoading: boolean;
+}
+
+export interface ImageResultViewProps {
+	imageResult: string,
+	loading: boolean
 }

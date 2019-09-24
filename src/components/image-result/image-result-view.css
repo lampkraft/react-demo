@@ -1,4 +1,4 @@
-.food-details-container {
+.image-result-container {
 	align-items: center;
 	background-color: white;
     border-radius: 4px;
@@ -10,11 +10,8 @@
     min-height: 200px;
     padding: 15px;
 }
-.food-details-container img {
+.image-result-container img {
 	width: 100%;
-}
-.details-list-item {
-	display: block;
 }
 .no-image-text {
 	color: #ccc;

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { SearchView } from './search-view';
-import { getFood, getFoodDetails } from './search.service';
+import { getSearchAutocomplete, getImage } from './search.service';
 import { ISearchContainerState } from './search.types';
 import Alert from 'react-bootstrap/Alert'
-import { FoodDetailsView } from '../food-details/food-details-view';
+import { ImageResultView } from '../image-result/image-result-view';
 
 export class SearchContainer extends Component<any>  {
 	state: ISearchContainerState = {
 		autoCompleteItems: [],
-		selectedFoodItemId: null,
 		result: null,
 		showDropdown: false,
 		searchLoading: false,
@@ -24,11 +23,11 @@ export class SearchContainer extends Component<any>  {
 			searchLoading: true,
 			inputValue: value
 		});
-		getFood(value)
+		getSearchAutocomplete(value)
 			.then((response) => {
 				console.log('SearchContainer:onSearch: ', response);
 				this.setState({
-					autoCompleteItems: [...response.data],
+					autoCompleteItems: response.data[1].map((itemName: string) => { return { id: itemName, value: itemName } }),
 					showDropdown: this.state.autoCompleteItems.length > 0 && this.state.inputValue !== '',
 				});
 			})
@@ -42,34 +41,38 @@ export class SearchContainer extends Component<any>  {
 			});
 	};
 
-	onSelect = (foodId: string): void => {
-		const food = this.state.autoCompleteItems.find(item => item.namn === foodId);
-		this.setState({
-			showDropdown: false,
-			inputValue: food && food.namn,
-			errorMsg: '',
-			searchLoading: true,
-			resultLoading: true
-		});
-		getFoodDetails(foodId)
-			.then((response) => {
-				console.log('SearchContainer:onSearch: ', response);
-				this.setState({
-					imageResult: response.data && response.data.hits && response.data.hits[0].largeImageURL,
-				});
-			})
-			.catch((err: Error) => {
-				console.error('SearchContainer:onSearch: ', err);
-				this.setState({
-					errorMsg: err.message,
-				});
-			})
-			.finally(() => {
-				this.setState({
-					searchLoading: false,
-					resultLoading: false
-				});
+	onSelect = (selectedItemId: string): void => {
+		const selectedItem = this.state.autoCompleteItems.find(item => item.id === selectedItemId);
+		if (selectedItem && selectedItem.value) {
+			this.setState({
+				showDropdown: false,
+				inputValue: selectedItem.value,
+				errorMsg: '',
+				searchLoading: true,
+				resultLoading: true
 			});
+			getImage(selectedItem.value)
+				.then((response: any) => {
+					console.log('SearchContainer:onSearch: ', response);
+					this.setState({
+						imageResult: response.data && response.data.hits && response.data.hits[0].largeImageURL,
+					});
+				})
+				.catch((err: Error) => {
+					console.error('SearchContainer:onSearch: ', err);
+					this.setState({
+						errorMsg: err.message,
+					});
+				})
+				.finally(() => {
+					this.setState({
+						searchLoading: false,
+						resultLoading: false
+					});
+				});
+		} else {
+			throw new Error('Could not find the selected item');
+		}
 	};
 
 	onClear = () => {
@@ -95,7 +98,7 @@ export class SearchContainer extends Component<any>  {
 					loading={this.state.searchLoading}
 					clear={this.onClear}></SearchView>
 				{this.state.errorMsg && <Alert variant="danger">{this.state.errorMsg}</Alert>}
-				<FoodDetailsView loading={this.state.resultLoading} imageResult={this.state.imageResult}></FoodDetailsView>
+				<ImageResultView loading={this.state.resultLoading} imageResult={this.state.imageResult}></ImageResultView>
 			</div>
 		);
 	}

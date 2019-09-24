@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { SearchView } from '../search-view';
 
 describe('Examining the syntax of Jest tests', () => {
 	it('renders without crashing', () => {
@@ -14,6 +13,11 @@ describe('Examining the syntax of Jest tests', () => {
 				placeholder="Sök livsmedel"
 				loading={false}
 				clear={() => { }}></SearchView>
+			, div);
+		ReactDOM.unmountComponentAtNode(div);
+	});
+});
+}}></SearchView>
 			, div);
 		ReactDOM.unmountComponentAtNode(div);
 	});

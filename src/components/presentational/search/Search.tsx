@@ -5,7 +5,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { ISearchViewProps } from './search.types';
 import './search-view.css';
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button';
@@ -17,18 +16,16 @@ export function SearchView(props: ISearchViewProps) {
 
   let searchValue: string = '';
 
-  const onSearch = (event: any) => {
-    // emit search
-    console.log('searching ', event);
+  const onSearch = (event: any): void => {
     searchValue = event.target.value;
     props.search(searchValue);
   };
 
-  const onSelect = (eventKey: any, _event: Object) => {
+  const onSelect = (eventKey: string, _event: Object): void => {
     props.select(eventKey);
   }
 
-  const onClear = () => {
+  const onClear = (): void => {
     props.clear();
   }
 
@@ -57,7 +54,7 @@ export function SearchView(props: ISearchViewProps) {
                   <Dropdown.Item
                     onSelect={onSelect}
                     key={item.id}
-                    eventKey={item.id as any}>
+                    eventKey={item.id}>
                     {item.value}
                   </Dropdown.Item>
                 )}

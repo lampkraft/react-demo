@@ -3,7 +3,6 @@ import './app.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
-import { SearchContainer } from './search/search-container';
 
 function App() {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import './image-result-view.css';
 import Spinner from 'react-bootstrap/Spinner'
-import { ImageResultViewProps } from '../search/search.types';
+import { ImageResultViewProps } from './ImageResult.types';
 
 export function ImageResultView(props: ImageResultViewProps) {
 	return (

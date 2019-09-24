@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { getSearchAutocomplete, getImage } from './SearchContainer.service';
 import Alert from 'react-bootstrap/Alert'
 import { ISearchContainerState } from './SearchContainer.types';
 import { ImageResultView } from '../../presentational/ImageResult/ImageResult';
-import { SearchView } from '../../presentational/Search/Search';
+import { Search } from '../../presentational/Search/Search';
+import { getSearchAutocomplete, getImage } from './SearchContainer.service';
 
 export class SearchContainer extends Component<any>  {
+
 	state: ISearchContainerState = {
 		autoCompleteItems: [],
 		result: null,
@@ -18,7 +19,6 @@ export class SearchContainer extends Component<any>  {
 	};
 
 	onSearch = (value: string): void => {
-		console.log('searching ', value);
 		this.setState({
 			searchLoading: true,
 			inputValue: value
@@ -26,14 +26,15 @@ export class SearchContainer extends Component<any>  {
 		if (value !== '') {
 			getSearchAutocomplete(value)
 				.then((response) => {
-					console.log('SearchContainer:onSearch: ', response);
 					this.setState({
 						autoCompleteItems: response.data[1].map((itemName: string) => { return { id: itemName, value: itemName } }),
 						showDropdown: this.state.autoCompleteItems.length > 0 && this.state.inputValue !== '',
 					});
 				})
 				.catch((err) => {
-					console.error('SearchContainer:onSearch: ', err);
+					this.setState({
+						errorMsg: err.message,
+					});
 				})
 				.finally(() => {
 					this.setState({
@@ -59,7 +60,6 @@ export class SearchContainer extends Component<any>  {
 			});
 			getImage(selectedItem.value)
 				.then((response: any) => {
-					console.log('SearchContainer:onSearch: ', response);
 					const image = response.data && response.data.hits && response.data.hits[0] && response.data.hits[0].largeImageURL;
 					if (!image) {
 						throw new Error(`Could not find any image related to "${selectedItem.value}"`);
@@ -69,7 +69,6 @@ export class SearchContainer extends Component<any>  {
 					});
 				})
 				.catch((err: Error) => {
-					console.error('SearchContainer:onSearch: ', err);
 					this.setState({
 						errorMsg: err.message,
 					});
@@ -97,18 +96,21 @@ export class SearchContainer extends Component<any>  {
 	}
 
 	render() {
+		const { inputValue, imageResult, resultLoading, autoCompleteItems, searchLoading, errorMsg, showDropdown } = this.state;
 		return (
 			<div>
-				<SearchView showDropdown={this.state.showDropdown}
+				<Search showDropdown={showDropdown}
 					search={this.onSearch}
 					select={this.onSelect}
-					inputValue={this.state.inputValue}
-					autoCompleteItems={this.state.autoCompleteItems}
+					inputValue={inputValue}
+					autoCompleteItems={autoCompleteItems}
 					placeholder="Search for anything"
-					loading={this.state.searchLoading}
-					clear={this.onClear}></SearchView>
-				{this.state.errorMsg && <Alert variant="danger">{this.state.errorMsg}</Alert>}
-				<ImageResultView loading={this.state.resultLoading} imageResult={this.state.imageResult}></ImageResultView>
+					loading={searchLoading}
+					clear={this.onClear}></Search>
+				{!searchLoading && errorMsg && <Alert variant="danger">{errorMsg}</Alert>}
+				<div>
+					<ImageResultView loading={resultLoading} imageResult={imageResult}></ImageResultView>
+				</div>
 			</div>
 		);
 	}

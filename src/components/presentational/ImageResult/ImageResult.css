@@ -1,4 +1,4 @@
-.image-result-container {
+.ImageResultContainer {
 	align-items: center;
 	background-color: white;
     border-radius: 4px;
@@ -10,10 +10,10 @@
     min-height: 200px;
     padding: 15px;
 }
-.image-result-container img {
+.ImageResultContainer img {
 	width: 100%;
 }
-.no-image-text {
+.ImageResultNoImageText {
 	color: #ccc;
 	font-size: 24px;
 	font-weight: bold;

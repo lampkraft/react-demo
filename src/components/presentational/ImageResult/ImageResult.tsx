@@ -1,12 +1,12 @@
 import React from 'react';
-import './ImageResult.css';
 import Spinner from 'react-bootstrap/Spinner'
+import './ImageResult.css';
 import { ImageResultViewProps } from './ImageResult.types';
 
 export function ImageResultView(props: ImageResultViewProps) {
 	return (
-		<div className="image-result-container">
-			{!props.loading && (props.imageResult ? <img alt="Sökresultat" src={props.imageResult} /> : <span className="no-image-text">Sök efter något!</span>)}
+		<div className="ImageResultContainer">
+			{!props.loading && (props.imageResult ? <img alt="Search image" src={props.imageResult} /> : <span className="ImageResultNoImageText">Image from search query shown here</span>)}
 			{props.loading && <Spinner animation="border" />}
 		</div>
 	);

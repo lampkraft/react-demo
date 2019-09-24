@@ -3,7 +3,7 @@ export interface ISearchItem {
 	value: string;
 }
 
-export interface ISearchViewProps {
+export interface ISearchProps {
 	search: Function;
 	select: Function;
 	showDropdown: boolean;

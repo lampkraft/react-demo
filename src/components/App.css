@@ -1,4 +1,4 @@
-.app {
+.App {
   min-height: 100vh;
   text-align: center;
   background-color: white;
@@ -10,11 +10,6 @@
   color: white;
 }
 
-.app-content {
-  margin-bottom: 30px;
+.AppContent {
   width: 700px;
-}
-
-.app-search {
-  margin: 15px 0;
 }

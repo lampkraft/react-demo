@@ -40,6 +40,10 @@ export class SearchContainer extends Component<any>  {
 						searchLoading: false,
 					});
 				});
+		} else {
+			this.setState({
+				imageResult: null
+			});
 		}
 	};
 

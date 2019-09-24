@@ -1,6 +1,8 @@
-This is a small app showcasing react, typescript and jest tests. My main focus was to create a component structure which follows the container/presentational pattern which enables better structure and testing.
+This is a small app created with react together with typescript. My main focus was to create a component structure using the container/presentational pattern.
 
-The API used to fetch data is from "Livsmedelsverket": https://www.livsmedelsverket.se/om-oss/psidata/livsmedelsdatabasen/
+API's used:
+Search queries autocomplete - http://suggestqueries.google.com/
+Image - https://pixabay.com/
 
 ### `npm start`
 

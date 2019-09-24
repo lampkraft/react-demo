@@ -60,8 +60,12 @@ export class SearchContainer extends Component<any>  {
 			getImage(selectedItem.value)
 				.then((response: any) => {
 					console.log('SearchContainer:onSearch: ', response);
+					const image = response.data && response.data.hits && response.data.hits[0] && response.data.hits[0].largeImageURL;
+					if (!image) {
+						throw new Error(`Could not find any image related to "${selectedItem.value}"`);
+					}
 					this.setState({
-						imageResult: response.data && response.data.hits && response.data.hits[0].largeImageURL,
+						imageResult: image,
 					});
 				})
 				.catch((err: Error) => {
@@ -100,7 +104,7 @@ export class SearchContainer extends Component<any>  {
 					select={this.onSelect}
 					inputValue={this.state.inputValue}
 					autoCompleteItems={this.state.autoCompleteItems}
-					placeholder="Sök livsmedel"
+					placeholder="Search for anything"
 					loading={this.state.searchLoading}
 					clear={this.onClear}></SearchView>
 				{this.state.errorMsg && <Alert variant="danger">{this.state.errorMsg}</Alert>}

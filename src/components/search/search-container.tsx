@@ -23,22 +23,24 @@ export class SearchContainer extends Component<any>  {
 			searchLoading: true,
 			inputValue: value
 		});
-		getSearchAutocomplete(value)
-			.then((response) => {
-				console.log('SearchContainer:onSearch: ', response);
-				this.setState({
-					autoCompleteItems: response.data[1].map((itemName: string) => { return { id: itemName, value: itemName } }),
-					showDropdown: this.state.autoCompleteItems.length > 0 && this.state.inputValue !== '',
+		if (value !== '') {
+			getSearchAutocomplete(value)
+				.then((response) => {
+					console.log('SearchContainer:onSearch: ', response);
+					this.setState({
+						autoCompleteItems: response.data[1].map((itemName: string) => { return { id: itemName, value: itemName } }),
+						showDropdown: this.state.autoCompleteItems.length > 0 && this.state.inputValue !== '',
+					});
+				})
+				.catch((err) => {
+					console.error('SearchContainer:onSearch: ', err);
+				})
+				.finally(() => {
+					this.setState({
+						searchLoading: false,
+					});
 				});
-			})
-			.catch((err) => {
-				console.error('SearchContainer:onSearch: ', err);
-			})
-			.finally(() => {
-				this.setState({
-					searchLoading: false,
-				});
-			});
+		}
 	};
 
 	onSelect = (selectedItemId: string): void => {

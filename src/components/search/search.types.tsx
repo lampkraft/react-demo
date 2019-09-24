@@ -23,7 +23,9 @@ export interface ISearchContainerState {
 	selectedFoodItemId: string | null,
 	result: any | null,
 	showDropdown: boolean;
-	loading: boolean;
 	inputValue: string;
 	errorMsg: string;
+	imageResult: string;
+	resultLoading: boolean;
+	searchLoading: boolean;
 }

@@ -3,6 +3,7 @@ import { SearchView } from './search-view';
 import { getFood, getFoodDetails } from './search.service';
 import { ISearchContainerState } from './search.types';
 import Alert from 'react-bootstrap/Alert'
+import { FoodDetailsView } from '../food-details/food-details-view';
 
 export class SearchContainer extends Component<any>  {
 	state: ISearchContainerState = {
@@ -10,15 +11,17 @@ export class SearchContainer extends Component<any>  {
 		selectedFoodItemId: null,
 		result: null,
 		showDropdown: false,
-		loading: false,
+		searchLoading: false,
+		resultLoading: false,
 		inputValue: '',
-		errorMsg: ''
+		errorMsg: '',
+		imageResult: ''
 	};
 
 	onSearch = (value: string): void => {
 		console.log('searching ', value);
 		this.setState({
-			loading: true,
+			searchLoading: true,
 			inputValue: value
 		});
 		getFood(value)
@@ -34,24 +37,25 @@ export class SearchContainer extends Component<any>  {
 			})
 			.finally(() => {
 				this.setState({
-					loading: false,
+					searchLoading: false,
 				});
 			});
 	};
 
-	onSelect = (foodId: number): void => {
-		const food = this.state.autoCompleteItems.find(item => item.id === foodId);
+	onSelect = (foodId: string): void => {
+		const food = this.state.autoCompleteItems.find(item => item.namn === foodId);
 		this.setState({
 			showDropdown: false,
 			inputValue: food && food.namn,
 			errorMsg: '',
-			loading: true
+			searchLoading: true,
+			resultLoading: true
 		});
 		getFoodDetails(foodId)
 			.then((response) => {
 				console.log('SearchContainer:onSearch: ', response);
 				this.setState({
-					result: [...response.data],
+					imageResult: response.data && response.data.hits && response.data.hits[0].largeImageURL,
 				});
 			})
 			.catch((err: Error) => {
@@ -62,7 +66,8 @@ export class SearchContainer extends Component<any>  {
 			})
 			.finally(() => {
 				this.setState({
-					loading: false,
+					searchLoading: false,
+					resultLoading: false
 				});
 			});
 	};
@@ -72,7 +77,9 @@ export class SearchContainer extends Component<any>  {
 			showDropdown: false,
 			inputValue: '',
 			errorMsg: '',
-			loading: false
+			imageResult: null,
+			searchLoading: false,
+			resultLoading: false
 		});
 	}
 
@@ -85,10 +92,10 @@ export class SearchContainer extends Component<any>  {
 					inputValue={this.state.inputValue}
 					autoCompleteItems={this.state.autoCompleteItems}
 					placeholder="Sök livsmedel"
-					loading={this.state.loading}
+					loading={this.state.searchLoading}
 					clear={this.onClear}></SearchView>
 				{this.state.errorMsg && <Alert variant="danger">{this.state.errorMsg}</Alert>}
-				{this.state.result}
+				<FoodDetailsView loading={this.state.resultLoading} imageResult={this.state.imageResult}></FoodDetailsView>
 			</div>
 		);
 	}

@@ -25,7 +25,7 @@ export function SearchView(props: ISearchViewProps) {
   };
 
   const onSelect = (eventKey: any, _event: Object) => {
-    props.select(parseInt(eventKey, 10));
+    props.select(eventKey);
   }
 
   const onClear = () => {
@@ -57,7 +57,7 @@ export function SearchView(props: ISearchViewProps) {
                   <Dropdown.Item
                     onSelect={onSelect}
                     key={item.id}
-                    eventKey={item.id as any}>
+                    eventKey={item.namn as any}>
                     {item.namn}
                   </Dropdown.Item>
                 )}

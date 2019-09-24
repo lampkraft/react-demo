@@ -1,8 +1,7 @@
 import React from 'react';
-import './app.css';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
-import 'react-bootstrap-typeahead/css/Typeahead-bs4.css';
+import { SearchContainer } from './container/SearchContainer/SearchContainer';
 
 function App() {
   return (

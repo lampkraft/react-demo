@@ -1,4 +1,4 @@
-import { ISearchItem } from "../../presentational/search/search.types";
+import { ISearchItem } from "../../presentational/Search/Search.types";
 
 export interface ISearchContainerState {
 	autoCompleteItems: ISearchItem[];

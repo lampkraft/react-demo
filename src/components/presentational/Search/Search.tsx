@@ -5,9 +5,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import './search-view.css';
+import './Search.css';
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button';
+import { ISearchViewProps } from './Search.types';
 
 library.add(faSearch);
 library.add(faTimes);

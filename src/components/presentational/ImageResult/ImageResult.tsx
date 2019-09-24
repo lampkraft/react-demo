@@ -1,5 +1,5 @@
 import React from 'react';
-import './image-result-view.css';
+import './ImageResult.css';
 import Spinner from 'react-bootstrap/Spinner'
 import { ImageResultViewProps } from './ImageResult.types';
 

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { getSearchAutocomplete, getImage } from './SearchContainer.service';
 import Alert from 'react-bootstrap/Alert'
 import { ISearchContainerState } from './SearchContainer.types';
-import { SearchView } from '../../presentational/search/search';
-import { ImageResultView } from '../../presentational/image-result/ImageResult';
+import { ImageResultView } from '../../presentational/ImageResult/ImageResult';
+import { SearchView } from '../../presentational/Search/Search';
 
 export class SearchContainer extends Component<any>  {
 	state: ISearchContainerState = {
